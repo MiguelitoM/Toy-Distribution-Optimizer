@@ -1,6 +1,6 @@
 # Santa’s Toy Distribution Optimizer – ASA Project 3 (2024/25)
 
-### 🔍 Overview
+## 🔍 Overview
 The program chooses **which toy each child receives** so that the largest possible number of kids
 around the world get a present **while respecting production and trade rules**.
 
@@ -9,15 +9,13 @@ Inputs describe
 * **m countries** – each sets  
   * a *minimum* number `pmin` of toys that must stay inside the country and  
   * a *maximum* export quota `pmax`,  
-* **t children** – each child lives in some country and lists the toys (factories) they would accept.  
+* **t children** – each child lives in one country and lists the toys (factories) they would accept.  
 
 Each child can receive **at most one** toy.  
 If it is impossible to satisfy *all* per‑country rules the solver outputs **`‑1`**. Otherwise it outputs
-the **maximum number of happy children**. citeturn5file2turn5file5
+the **maximum number of happy children**.
 
----
-
-### 💡 Formulation
+## 💡 Formulation
 The task is modelled as a **0‑1 Integer Linear Program** using *PuLP*:
 
 | Symbol | Description |
@@ -39,21 +37,16 @@ Constraints
 4. **Domestic minima** – for each country j  
    Σ_{c∈j} Σ_{f} e_{c,f} ≥ pmin_j  
 
-The ILP is solved with **GLPK** in a few hundred milliseconds for the public datasets. citeturn5file3
+The ILP is solved with **GLPK** in a few hundred milliseconds for the public datasets.
 
----
-
-### ⚙️ Setup & Execution
+## ⚙️ Setup & Execution
 ```bash
 # Install dependencies
-python3 -m pip install pulp        # solver front‑end
-sudo apt-get install glpk-utils    # GLPK back‑end (Ubuntu)
+python3 -m pip install pulp    
 
 # Solve an instance
 python3 proj3.py < input.txt
 ```
-
----
 
 ### 🧪 Generating test cases
 ```bash
@@ -61,29 +54,4 @@ python3 proj3.py < input.txt
 python3 generator.py 50 10 200 0.3 5 4 > input.txt
 ```
 The generator outputs *always‑feasible* instances covering corner cases and large random
-scenarios. citeturn5file9
-
----
-
-### 📂 Repository layout
-```
-.
-├── proj3.py        # ILP solver
-├── generator.py    # random instance generator
-├── p3.pdf          # original statement (PT‑BR)
-└── README.md       # (this file)
-```
-
----
-
-### 📚 Learning outcomes
-* Translate discrete allocation rules into an ILP model  
-* Use **PuLP** + **GLPK** from Python  
-* Perform feasibility checks and maximality queries in one run  
-* Stress‑test solvers with synthetic generators
-
----
-
-### 📝 Authors & License
-Developed by <author‑name(s)> for the ASA course @ IST.  
-Released under the MIT License.
+scenarios.
